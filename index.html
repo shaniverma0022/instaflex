@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>InstaFlex – Instagram Reels Downloader</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:linear-gradient(135deg,#7c3aed,#ec4899 55%,#3b82f6);--ink:#1b1630;--mute:#6b6584;--line:#ece8f6;--r:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:#fff;color:var(--ink);font:400 16px/1.6 'Plus Jakarta Sans',system-ui,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#fffd;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:20px;text-decoration:none;color:var(--ink)}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--g);display:grid;place-items:center}
+.logo i:after{content:"";width:14px;height:14px;border:2.5px solid #fff;border-radius:50%}
+nav{display:flex;gap:4px;overflow-x:auto;margin-left:auto;max-width:100%}
+nav a{white-space:nowrap;padding:6px 12px;border-radius:99px;color:var(--mute);text-decoration:none;font-weight:600;font-size:14px}
+nav a:hover{background:#f6f2ff;color:var(--ink)}
+main{max-width:760px;margin:0 auto;padding:0 16px}
+.hero{text-align:center;padding:44px 0 22px}
+h1{font-size:clamp(32px,8vw,52px);line-height:1.1;margin:0 0 14px;font-weight:800;letter-spacing:-.02em;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mute);margin:0 auto;max-width:520px}
+.card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:0 14px 40px #7c3aed1f}
+.card h2{font-size:19px;margin:0 0 14px}
+input{width:100%;font:inherit;padding:16px;border:2px solid var(--line);border-radius:16px;outline:none}
+input:focus{border-color:#a78bfa;box-shadow:0 0 0 4px #7c3aed1a}
+.row{display:flex;gap:10px;margin:12px 0}
+button{font:inherit;font-weight:700;border:0;border-radius:16px;cursor:pointer;padding:14px;transition:transform .15s,opacity .15s}
+button:active{transform:scale(.97)}button:disabled{opacity:.55;cursor:wait}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #3b82f6;outline-offset:2px}
+.ghost{flex:1;background:#f6f2ff;color:#5b21b6}
+.big{width:100%;background:var(--g);color:#fff;font-size:18px;padding:18px;box-shadow:0 8px 22px #ec489940}
+.status{margin:14px 0 0;padding:12px 14px;border-radius:14px;font-size:15px;background:#f6f2ff}
+.status.err{background:#fff0f3;color:#b4143c}.status.ok{background:#ecfdf3;color:#067647}
+.status.busy:before{content:"";display:inline-block;width:14px;height:14px;margin-right:8px;vertical-align:-2px;border:3px solid #c4b5fd;border-top-color:#7c3aed;border-radius:50%;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+#result{margin-top:18px}video{width:100%;max-height:70vh;border-radius:18px;background:#000;display:block}
+.cap{color:var(--mute);font-size:14px;margin:10px 0}.note{font-size:13px;color:var(--mute);margin:12px 0 0}
+.dls{display:grid;gap:10px;margin-top:14px}.dls .big{box-shadow:none}.dls .alt{background:var(--ink)}
+#retry{width:100%;margin-top:10px;background:#fff;border:2px solid #7c3aed;color:#7c3aed}
+section{padding:44px 0 0}section h2{font-size:26px;margin:0 0 16px}
+ol{list-style:none;padding:0;margin:0;display:grid;gap:10px;counter-reset:n}
+ol li{counter-increment:n;display:flex;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r)}
+ol li:before{content:counter(n);flex:none;width:34px;height:34px;border-radius:50%;background:var(--g);color:#fff;font-weight:800;display:grid;place-items:center}
+details{border-bottom:1px solid var(--line);padding:14px 0}summary{font-weight:700;cursor:pointer}details p{color:var(--mute);margin:8px 0 0}
+footer{margin-top:56px;border-top:1px solid var(--line);padding:26px 16px;text-align:center;color:var(--mute);font-size:14px}
+footer a{color:#7c3aed;margin:0 8px;font-weight:600}
+.legal{text-align:left;max-width:680px;margin:14px auto 0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+<header id="home"><a class="logo" href="#home"><i></i>InstaFlex</a>
+<nav><a href="#home">Home</a><a href="#downloader">Reels Downloader</a><a href="#how">How to Use</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav></header>
+<main>
+<div class="hero"><h1>Instagram Reels Downloader</h1>
+<p>Paste your Instagram video link and download available media in the best available quality.</p></div>
+
+<div class="card" id="downloader"><h2>Paste Your Instagram Video Link</h2>
+<input id="url" type="url" inputmode="url" autocomplete="off" placeholder="Paste Instagram Reel or video link here..." aria-label="Instagram link">
+<div class="row"><button class="ghost" id="paste">Paste Link</button><button class="ghost" id="clear">Clear</button></div>
+<button class="big" id="get">Get Video</button>
+<div class="status" id="status" role="status" hidden></div>
+<div id="result" hidden>
+<video id="vid" controls playsinline preload="metadata"></video>
+<p class="cap" id="cap"></p>
+<div class="dls"><button class="big dl" data-k="video">Download Video</button><button class="big alt dl" data-k="hd">Download HD</button></div>
+<p class="note" id="note"></p>
+<button id="retry" hidden>Retry download</button></div></div>
+
+<section id="how"><h2>How to Use</h2><ol>
+<li>Copy the Instagram Reel or video link.</li><li>Paste it into the input box.</li>
+<li>Press Get Video.</li><li>Choose Download Video or Download HD.</li></ol></section>
+
+<section id="faq"><h2>FAQ</h2>
+<details><summary>Which videos can I download?</summary><p>Videos from the Instagram account connected to this site, retrieved through Instagram's official API. Private content and other people's accounts are not available.</p></details>
+<details><summary>Is a watermark added?</summary><p>No. The original file is passed through untouched, with no logo, text, intro or outro added. If the creator's video already has one, it stays as it is.</p></details>
+<details><summary>What is the difference between the two buttons?</summary><p>Instagram's API provides one file per video, so both buttons give you the original upload. We never promise a quality the source doesn't offer.</p></details>
+<details><summary>The download failed. What now?</summary><p>Press Retry. If the link has expired, press Get Video again.</p></details></section>
+
+<section id="contact"><h2>Contact</h2><p>Questions or problems? Write to <a href="mailto:hello@your-domain.com" style="color:#7c3aed">hello@your-domain.com</a>.</p></section>
+</main>
+<footer>© InstaFlex. Not affiliated with Instagram or Meta.<br>
+<a href="#privacy" onclick="document.getElementById('privacy').open=true">Privacy Policy</a><a href="#terms" onclick="document.getElementById('terms').open=true">Terms of Service</a>
+<div class="legal"><details id="privacy"><summary>Privacy Policy</summary><p>InstaFlex does not store videos or personal data. Links you submit are processed to fetch the video and are not kept after the temporary download link expires (15 minutes).</p></details>
+<details id="terms"><summary>Terms of Service</summary><p>Only download content you own or have permission to use. You are responsible for respecting copyright, privacy and Instagram's rules. The service is provided as is.</p></details></div></footer>
+
+<script>
+const $=s=>document.querySelector(s),url=$('#url'),st=$('#status'),result=$('#result'),get=$('#get');
+let cur=null,lastKey=null;
+const say=(m,t='')=>{st.textContent=m;st.className='status '+t;st.hidden=!m};
+const isIG=v=>{try{return /^(www\.)?instagram\.com$/i.test(new URL(v.trim()).hostname)}catch{return false}};
+$('#paste').onclick=async()=>{try{url.value=(await navigator.clipboard.readText()).trim();url.focus()}catch{say('Clipboard access is blocked. Press and hold the box, then choose Paste.','err')}};
+$('#clear').onclick=()=>{url.value='';result.hidden=true;$('#vid').removeAttribute('src');cur=null;say('')};
+get.onclick=async()=>{
+  const v=url.value.trim();
+  if(!isIG(v))return say('Please paste a valid Instagram link, like instagram.com/reel/…','err');
+  get.disabled=true;result.hidden=true;say('Processing your link…','busy');
+  try{
+    const r=await fetch('/api/resolve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:v})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(d.error||'This video could not be retrieved.');
+    cur=d;const vid=$('#vid');vid.poster=d.thumb||'';vid.src='/api/file?id='+d.id;
+    $('#cap').textContent=d.caption;$('#note').textContent=d.note;$('#retry').hidden=true;
+    result.hidden=false;say('');result.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(e){say(e.message,'err')}finally{get.disabled=false}
+};
+async function download(k){
+  const b=[...document.querySelectorAll('.dl')];b.forEach(x=>x.disabled=true);$('#retry').hidden=true;lastKey=k;say('Downloading the original file…','busy');
+  try{
+    const r=await fetch(`/api/file?id=${cur.id}&dl=1`);
+    if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||'Server error '+r.status);
+    const blob=await r.blob();if(!blob.size)throw new Error('The file was empty.');
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=cur.name;document.body.append(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),60000);say('Download started. Check your Downloads folder.','ok');
+  }catch(e){say('Download failed: '+e.message,'err');$('#retry').hidden=false}
+  finally{b.forEach(x=>x.disabled=false)}
+}
+document.querySelectorAll('.dl').forEach(x=>x.onclick=()=>download(x.dataset.k));
+$('#retry').onclick=()=>download(lastKey);
+</script></body></html>
